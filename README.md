@@ -23,7 +23,7 @@
 
 ## Demo
 
-> Live Demo: _Coming soon on Streamlit Cloud_
+> 💻 Live Demo: [Click here to try it!](https://prompt-to-plot-ztgfmvglzhmkxv7qwztc4g.streamlit.app/)
 
 ### UI Preview:
 
