@@ -1,0 +1,21 @@
+# Ignore environment and sensitive files
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+.DS_Store
+
+# VSCode and system files
+.vscode/
+.idea/
+
+# Streamlit config
+.streamlit/
+
+# Python virtual env
+venv/
+.env/
+*.egg-info/
