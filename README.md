@@ -23,7 +23,7 @@
 
 ## Demo
 
-> 💻 **Live Demo**: [Click here to try!](https://your-streamlit-app-url.streamlit.app)
+> 💻 **Live Demo**: [Click here to try!](https://your-live-app-link.streamlit.app)
 
 ### UI Preview:
 
@@ -50,9 +50,9 @@ This project is ideal for:
 - Genre selection (Horror, Sci-Fi, Romance, etc.)  
 - Adjustable story length (Short / Medium / Long)  
 - Powered by Gemini 1.5 Flash (Google Generative AI)  
-- Token usage estimation per story  
-- Download story as `.txt`  
-- Runs within Google's free tier (2M tokens/month)
+- Button is auto-disabled until prompt is filled  
+- Token usage estimation  
+- Download story as `.txt`
 
 ---
 
@@ -82,7 +82,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 > Get your free key here: https://aistudio.google.com/app/apikey  
-> Make sure to use **Gemini 1.5 Flash** to stay in the free tier.
+> Use the **Gemini 1.5 Flash** model for optimal free-tier usage.
 
 ---
 
@@ -96,7 +96,7 @@ streamlit run app.py
 2. Choose a genre and length  
 3. Click **Generate Story ✨**  
 4. Read and download your AI-generated story  
-5. See estimated token usage to track free-tier consumption
+5. See estimated token usage
 
 ---
 
@@ -114,8 +114,6 @@ GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 5. Click **Deploy**
-
-> ⚠️ This app uses your Gemini key, and usage will count toward your free quota. You will not be billed unless you’ve enabled Google Cloud billing.
 
 ---
 
@@ -160,7 +158,6 @@ Open an issue here:
 
 5. **Image-to-Story Mode**  
    Upload an image and let the AI create a story based on it
-
 
 ---
 
