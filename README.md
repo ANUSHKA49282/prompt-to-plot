@@ -155,11 +155,12 @@ Open an issue here:
 3. **User Login & Saved Stories**  
    Allow users to save and revisit past stories
 
-4. **Live Deployment**  
-   Host the app on Streamlit Cloud with 24/7 access
-
-5. **Multi-language Support**  
+4. **Multi-language Support**  
    Generate stories in Hindi, Telugu, and more
+
+5. **Image-to-Story Mode**  
+   Upload an image and let the AI create a story based on it
+
 
 ---
 
