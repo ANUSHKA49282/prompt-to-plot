@@ -1,14 +1,14 @@
 import streamlit as st
-from huggingface_hub import InferenceClient
+import google.generativeai as genai
 from dotenv import load_dotenv
 import os
 
-# Load Hugging Face token from .env
+# Load Gemini API Key
 load_dotenv()
-HF_API_KEY = os.getenv("HF_API_KEY")
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Connect to Hugging Face model
-client = InferenceClient("HuggingFaceH4/zephyr-7b-alpha", token=HF_API_KEY)
+# Load Gemini model
+model = genai.GenerativeModel("models/gemini-1.5-flash-latest")
 
 # Streamlit UI setup
 st.set_page_config(page_title="Prompt to Plot", page_icon="📖")
@@ -25,31 +25,20 @@ length = st.selectbox("Choose story length:", ["Short", "Medium", "Long"])
 length_map = {"Short": 80, "Medium": 200, "Long": 400}
 max_tokens = length_map[length]
 
-# Story generation function
+# Generate story function using Gemini
 def generate_story(prompt, max_tokens):
     try:
         genre_prompt = f"Write a {genre.lower()} story." if genre != "Any" else "Write a creative story."
+        full_prompt = f"{genre_prompt}\nUser prompt: {prompt}\nLimit it to around {max_tokens} words."
 
-        response = client.chat_completion(
-            messages=[
-                {"role": "system", "content": genre_prompt},
-                {"role": "user", "content": prompt}
-            ],
-            max_tokens=max_tokens,
-            temperature=0.8
-        )
-        return response.choices[0].message.content.strip()
+        response = model.generate_content(full_prompt)
+        return response.text.strip()
 
     except Exception as e:
         return f"⚠️ Error: {str(e)}"
 
-# Generate story button
-if st.button("Generate Story ✨"):
-    if not prompt.strip():
-        st.warning("Please enter a prompt.")
-    else:
-        with st.spinner("Crafting your story..."):
-            story = generate_story(prompt, max_tokens)
-            st.success("Here's your story:")
-            st.write(story)
-            st.download_button("📥 Download Story", data=story, file_name="story.txt", mime="text/plain")
+# Generate button
+if st.button("Generate Story") and prompt:
+    story = generate_story(prompt, max_tokens)
+    st.markdown("### ✨ Your Story:")
+    st.write(story)
