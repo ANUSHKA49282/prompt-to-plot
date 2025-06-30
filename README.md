@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![Streamlit](https://img.shields.io/badge/Built with-Streamlit-ff4b4b.svg)](https://streamlit.io/)
-[![Hugging Face Model](https://img.shields.io/badge/Model-Zephyr-7B-yellow)](https://huggingface.co/HuggingFaceH4/zephyr-7b-alpha)
+[![Model](https://img.shields.io/badge/Model-Gemini_1.5_Flash-yellow)](https://makersuite.google.com/app)
 
 ---
 
@@ -23,7 +23,7 @@
 
 ## Demo
 
-> 💻 Live Demo: [Click here to try it!](https://prompt-to-plot-ztgfmvglzhmkxv7qwztc4g.streamlit.app/)
+> 💻 **Live Demo**: [Click here to try!](https://your-streamlit-app-url.streamlit.app)
 
 ### UI Preview:
 
@@ -37,7 +37,7 @@
 
 ## Overview
 
-**Prompt to Plot** is a Streamlit-based AI storytelling app that transforms your ideas into creative narratives using the [Zephyr-7B](https://huggingface.co/HuggingFaceH4/zephyr-7b-alpha) language model.
+**Prompt to Plot** is a Streamlit-based AI storytelling app that transforms your ideas into creative narratives using the **Gemini 1.5 Flash** model from Google.
 
 This project is ideal for:
 - Writers looking for inspiration  
@@ -49,8 +49,10 @@ This project is ideal for:
 - Prompt input from user  
 - Genre selection (Horror, Sci-Fi, Romance, etc.)  
 - Adjustable story length (Short / Medium / Long)  
-- Generates creative stories using Hugging Face API  
-- Download generated story as `.txt`
+- Powered by Gemini 1.5 Flash (Google Generative AI)  
+- Token usage estimation per story  
+- Download story as `.txt`  
+- Runs within Google's free tier (2M tokens/month)
 
 ---
 
@@ -71,35 +73,36 @@ cd prompt-to-plot
 pip install -r requirements.txt
 ```
 
-### 3. Add Hugging Face API Key
+### 3. Add Gemini API Key
 
 Create a file named `.env` in the root folder:
 
 ```env
-HF_API_KEY=your_huggingface_token_here
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
-> Create a free token from: https://huggingface.co/settings/tokens  
-> Use “Read” access level
+> Get your free key here: https://aistudio.google.com/app/apikey  
+> Make sure to use **Gemini 1.5 Flash** to stay in the free tier.
 
 ---
 
 ## How to Use
 
 ```bash
-python -m streamlit run app.py
+streamlit run app.py
 ```
 
 1. Enter your story prompt  
 2. Choose a genre and length  
 3. Click **Generate Story ✨**  
-4. Read and download your AI-generated story!
+4. Read and download your AI-generated story  
+5. See estimated token usage to track free-tier consumption
 
 ---
 
 ## Deployment on Streamlit
 
-To deploy your app on [streamlit.io/cloud](https://streamlit.io/cloud):
+To deploy your app on [Streamlit Cloud](https://streamlit.io/cloud):
 
 1. Sign in with GitHub  
 2. Create a new app using this repo: `ANUSHKA49282/prompt-to-plot`  
@@ -107,10 +110,12 @@ To deploy your app on [streamlit.io/cloud](https://streamlit.io/cloud):
 4. In **Advanced settings → Secrets**, add:
 
 ```env
-HF_API_KEY=your_token_here
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 5. Click **Deploy**
+
+> ⚠️ This app uses your Gemini key, and usage will count toward your free quota. You will not be billed unless you’ve enabled Google Cloud billing.
 
 ---
 
@@ -119,7 +124,7 @@ HF_API_KEY=your_token_here
 ```text
 prompt-to-plot/
 ├── app.py
-├── .env              # (ignored from GitHub)
+├── .env              # (ignored by .gitignore)
 ├── LICENSE
 ├── README.md
 ├── requirements.txt
@@ -154,7 +159,7 @@ Open an issue here:
    Host the app on Streamlit Cloud with 24/7 access
 
 5. **Multi-language Support**  
-   Generate stories in other languages like Hindi, Telugu, etc.
+   Generate stories in Hindi, Telugu, and more
 
 ---
 
