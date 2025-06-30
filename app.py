@@ -3,42 +3,42 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 import os
 
-# Load Gemini API Key
+# Load API key from .env
 load_dotenv()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-# Load Gemini model
+# Set up Gemini model
 model = genai.GenerativeModel("models/gemini-1.5-flash-latest")
 
 # Streamlit UI setup
 st.set_page_config(page_title="Prompt to Plot", page_icon="📖")
 st.title("📖 Prompt to Plot: Your Instant Story Buddy")
 
-# Prompt input
-prompt = st.text_area("Enter a story prompt:", placeholder="e.g., A cat who runs a cafe for kittens...")
+# User inputs
+prompt = st.text_area("Enter your story prompt:", placeholder="e.g., A lonely astronaut discovers a mysterious planet...")
+genre = st.selectbox("Select a genre:", ["Any", "Horror", "Romance", "Sci-Fi", "Fantasy", "Mystery"])
+length = st.selectbox("Select story length:", ["Short", "Medium", "Long"])
+length_tokens = {"Short": 300, "Medium": 600, "Long": 1000}
+target_tokens = length_tokens[length]
 
-# Genre selection
-genre = st.selectbox("Choose story genre:", ["Any", "Horror", "Romance", "Sci-Fi", "Fantasy", "Mystery"])
+# Disable button if no prompt
+generate_disabled = len(prompt.strip()) == 0
 
-# Length selection
-length = st.selectbox("Choose story length:", ["Short", "Medium", "Long"])
-length_map = {"Short": 80, "Medium": 200, "Long": 400}
-max_tokens = length_map[length]
-
-# Generate story function using Gemini
-def generate_story(prompt, max_tokens):
-    try:
-        genre_prompt = f"Write a {genre.lower()} story." if genre != "Any" else "Write a creative story."
-        full_prompt = f"{genre_prompt}\nUser prompt: {prompt}\nLimit it to around {max_tokens} words."
-
+if st.button("Generate Story ✨", disabled=generate_disabled):
+    full_prompt = f"Write a {length.lower()} {genre.lower()} story based on this prompt: {prompt}" if genre != "Any" else f"Write a {length.lower()} story based on this prompt: {prompt}"
+    
+    with st.spinner("Generating your story..."):
         response = model.generate_content(full_prompt)
-        return response.text.strip()
+        story = response.text.strip()
 
-    except Exception as e:
-        return f"⚠️ Error: {str(e)}"
-
-# Generate button
-if st.button("Generate Story") and prompt:
-    story = generate_story(prompt, max_tokens)
-    st.markdown("### ✨ Your Story:")
+    st.subheader("📜 Your Generated Story:")
     st.write(story)
+
+    st.caption(f"🔢 Estimated token usage: ~{len(story.split())} tokens")
+
+    st.download_button(
+        label="📥 Download Story as .txt",
+        data=story,
+        file_name="my_story.txt",
+        mime="text/plain"
+    )
