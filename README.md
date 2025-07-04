@@ -23,7 +23,7 @@
 
 ## Demo
 
-> 💻 **Live Demo**: [Click here to try!](https://your-live-app-link.streamlit.app)
+> 💻 **Live Demo**: [Click here to try!](https://prompt-to-plot.streamlit.app/)
 
 ### UI Preview:
 
